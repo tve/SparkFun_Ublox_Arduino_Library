@@ -27,6 +27,7 @@
 */
 
 #include "SparkFun_Ublox_Arduino_Library.h"
+#undef DEBUG
 
 SFE_UBLOX_GPS::SFE_UBLOX_GPS(void)
 {
@@ -646,8 +647,8 @@ void SFE_UBLOX_GPS::printPacket(ubxPacket *packet)
 	debug.print(" ID:");
 	debug.print(packet->id, HEX);
 
-	//debug.print(" Len: 0x");
-	//debug.print(packet->len, HEX);
+	debug.print(" Len: 0x");
+	debug.print(packet->len, HEX);
 
 	debug.print(" Payload:");
 

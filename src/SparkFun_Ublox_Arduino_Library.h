@@ -29,10 +29,12 @@
 #ifndef SPARKFUN_UBLOX_ARDUINO_LIBRARY_H
 #define SPARKFUN_UBLOX_ARDUINO_LIBRARY_H
 
-#if (ARDUINO >= 100)
+#if 0
+#if defined(ARDUINO) && (ARDUINO >= 100)
 #include "Arduino.h"
 #else
 #include "WProgram.h"
+#endif
 #endif
 
 #include <Wire.h>
@@ -59,10 +61,10 @@
 //SAMD21 uses RingBuffer.h
 #define I2C_BUFFER_LENGTH SERIAL_BUFFER_SIZE
 
-#elif __MK20DX256__
+#elif defined(__MK20DX256__)
 //Teensy
 
-#elif ARDUINO_ARCH_ESP32
+#elif defined(ARDUINO_ARCH_ESP32)
 //ESP32 based platforms
 
 #else
