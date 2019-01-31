@@ -192,8 +192,6 @@ boolean SFE_UBLOX_GPS::checkUbloxI2C()
       return true;
 	}
 
-    uint32_t t0 = millis();
-    uint16_t ba = bytesAvailable;
     while (bytesAvailable)
     {
       _i2cPort->beginTransmission(_gpsI2Caddress);
@@ -218,7 +216,6 @@ boolean SFE_UBLOX_GPS::checkUbloxI2C()
 
       bytesAvailable -= bytesToRead;
     }
-    Serial.printf("GPS read %d bytes in %dms\n", ba, millis()-t0);
   } //end timed read
 
   return (true);
@@ -509,7 +506,6 @@ void SFE_UBLOX_GPS::processUBXpacket(ubxPacket *msg)
 //Given a packet and payload, send everything including CRC bytes via I2C port
 boolean SFE_UBLOX_GPS::sendCommand(ubxPacket outgoingUBX, uint16_t maxWait)
 {
-    uint32_t t0 = millis();
     commandAck = false; //We're about to send a command. Begin waiting for ack.
     calcChecksum(&outgoingUBX); //Sets checksum A and B bytes of the packet
 
@@ -525,8 +521,6 @@ boolean SFE_UBLOX_GPS::sendCommand(ubxPacket outgoingUBX, uint16_t maxWait)
     {
         sendSerialCommand(outgoingUBX);
     }
-    uint32_t t1 = millis();
-    Serial.printf("Sent in %dms\n", t1-t0);
 
     if (maxWait > 0)
     {
